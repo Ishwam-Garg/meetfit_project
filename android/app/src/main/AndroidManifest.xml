@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.meetfit.meetfit_project">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="meetfit_project"
         android:icon="@mipmap/ic_launcher">

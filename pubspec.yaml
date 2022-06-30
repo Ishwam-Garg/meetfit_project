@@ -18,7 +18,7 @@ publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 version: 1.0.0+1
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.13.0 <3.0.0"
 
 dependencies:
   flutter:
@@ -33,18 +33,16 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   #firebase services
-  firebase_core: ^0.5.3
-  cloud_firestore: ^0.14.4
-  firebase_storage: ^5.2.0
-  #date & time
-  intl: ^0.17.0
-  #shimmer effect (loading effect)
-  shimmer: ^2.0.0
+  firebase_core: ^1.6.0
+  cloud_firestore:
+  firebase_storage: ^10.0.3
   #design & fonts
-  animated_text_kit: ^2.2.0
-  google_fonts: ^1.1.1
+  animated_text_kit:
+  #google_fonts:
   #email validation
-  email_validator: ^2.0.1
+  email_validator:
+  #file picker
+  file_picker: ^4.0.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

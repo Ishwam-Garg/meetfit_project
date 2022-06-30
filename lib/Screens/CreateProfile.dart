@@ -1,7 +1,7 @@
 //@dart=2.9
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
+import 'package:file_picker/file_picker.dart';
 class CreateProfile extends StatefulWidget {
   final String email;
   final String pass;
@@ -17,6 +17,8 @@ class _CreateProfileState extends State<CreateProfile> {
   String _email  = "",_pass = "",_name="",_about="",_imgurl = "";
   TextEditingController _nameController = TextEditingController();
   TextEditingController _aboutController = TextEditingController();
+
+
 
 
   final _formKey = GlobalKey<FormState>();
@@ -56,18 +58,36 @@ class _CreateProfileState extends State<CreateProfile> {
                     ),
                   ),
                   SizedBox(height: 20,width: 20,),
-                  CircleAvatar(
-                    radius: 70,
-                    backgroundImage: AssetImage("assets/images/profile.png"),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: CircleAvatar(
-                        radius: 26,
-                        backgroundColor: Colors.white,
-                        child: GestureDetector(
-                          onTap: (){
-                            //select file
-                          },
+                  GestureDetector(
+                    onTap: ()async{
+                      print("YES");
+                      final FilePickerResult res = await FilePicker.platform.pickFiles(
+                        allowMultiple: false,
+                        type: FileType.custom,
+                        allowedExtensions: ['png','jpg','jpeg'],
+                      );
+
+                      if(res == null) //not picked
+                          {
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text("No file selected")));
+                      }
+                      else
+                      {
+                        String path = "",fname="";
+                        path = res.files.single.path;
+                        _imgurl = path;
+                        fname = res.files.single.name;
+                        print(fname + " " + path);
+                      }
+                    },
+                    child: CircleAvatar(
+                      radius: 70,
+                      backgroundImage: _imgurl=="" ? AssetImage("assets/images/profile.png") : AssetImage(_imgurl),
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: CircleAvatar(
+                          radius: 26,
+                          backgroundColor: Colors.white,
                           child: Align(
                             alignment: Alignment.center,
                             child: CircleAvatar(

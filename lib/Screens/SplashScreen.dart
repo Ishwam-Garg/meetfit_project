@@ -1,9 +1,8 @@
 // @dart=2.9
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:google_fonts/google_fonts.dart';
+//import 'package:google_fonts/google_fonts.dart';
 import 'package:meetfit_project/Screens/CreateProfile.dart';
 import 'package:meetfit_project/Screens/SignUpScreen.dart';
 
@@ -44,7 +43,7 @@ class _SplashState extends State<Splash> {
               'MeetMeFit',
             ],
             speed: Duration(milliseconds: 500),
-            textStyle: GoogleFonts.satisfy(
+            textStyle: TextStyle(
               fontSize: 54,
               fontWeight: FontWeight.bold,
             ),
