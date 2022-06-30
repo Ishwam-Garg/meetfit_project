@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "862319053589",
+    "project_id": "meetfit-app",
+    "storage_bucket": "meetfit-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:862319053589:android:9ff11443c5b4b768e0b71c",
+        "android_client_info": {
+          "package_name": "com.meetfit.meetfit_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "862319053589-6ouc2sso06rk9djo3ejrg4b06ipgnb6k.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.meetfit.meetfit_project",
+            "certificate_hash": "a75428f40602a43671f5b69904e4b22f0caf9f45"
+          }
+        },
+        {
+          "client_id": "862319053589-ifue4ohgct9ebgnt8ubk0d6crv9m37i0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBj5lFiaxUmX8KqEgIwXcw454ALKllw9QE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "862319053589-ifue4ohgct9ebgnt8ubk0d6crv9m37i0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
