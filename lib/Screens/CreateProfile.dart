@@ -1,6 +1,7 @@
 //@dart=2.9
 import 'dart:io';
-
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -16,9 +17,19 @@ class CreateProfile extends StatefulWidget {
 
 class _CreateProfileState extends State<CreateProfile> {
 
-  String _email  = "",_pass = "",_name="",_about="",_imgurl = "";
+  String _email  = "",_pass = "",_name="",_about="",_imgurl = "",_fname = "";
   TextEditingController _nameController = TextEditingController();
   TextEditingController _aboutController = TextEditingController();
+
+  Future<void> upload(String path,String fname,String email) async{
+    try{
+      await FirebaseStorage.instance.ref('images/$email/$fname').putFile(File(path));
+    }
+    on firebase_core.FirebaseException catch(e){
+      print(e);
+    }
+  }
+
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -72,14 +83,13 @@ class _CreateProfileState extends State<CreateProfile> {
                       }
                       else
                       {
-                        String path = "",fname="";
+                        String path = "";
                         path = res.files.single.path;
                         _imgurl = path;
-                        fname = res.files.single.name;
-                        print(fname);
+                        _fname = res.files.single.name;
+                        print(_fname);
                         print(path);
                         setState(() {
-
                         });
                       }
                     },
@@ -205,9 +215,10 @@ class _CreateProfileState extends State<CreateProfile> {
                         SizedBox(height: 20,width: 20,),
                         GestureDetector(
                           onTap: (){
-                            if(_formKey.currentState.validate())
+                            if(_formKey.currentState.validate() && _imgurl!="")
                               {
-
+                                print("yes");
+                                upload(_imgurl, _fname, _email);
                               }
                             else
                               {
