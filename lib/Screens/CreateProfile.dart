@@ -242,6 +242,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                     'email': _email,
                                     'about': _about,
                                     'name': _name,
+                                    'fname': _fname,
                                   };
                                   FirebaseFirestore.instance.collection("Users").doc(user.uid).collection("data").add(data).whenComplete(() {
                                     print("Complete");

@@ -2,6 +2,9 @@
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
 import 'package:meetfit_project/Screens/SignUpScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:meetfit_project/Screens/profileScreen.dart';
 class Login extends StatefulWidget {
 
   @override
@@ -142,7 +145,17 @@ class _LoginState extends State<Login> {
                     onTap: (){
                       if(_formKey.currentState.validate())
                       {
-
+                          try{
+                            FirebaseAuth.instance.signInWithEmailAndPassword(email: email, password: pass);
+                            User user = FirebaseAuth.instance.currentUser;
+                            Navigator.pushReplacement(context,
+                                MaterialPageRoute(builder: (BuildContext context)=>profile(user)));
+                          }
+                          catch(e){
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(content: Text('Error occurred')),
+                            );
+                          }
                       }
                       else
                       {

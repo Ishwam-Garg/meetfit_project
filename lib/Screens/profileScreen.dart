@@ -69,11 +69,26 @@ class _profileState extends State<profile> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            CircleAvatar(
-                              radius: 70,
-                              backgroundImage: img=="" ? AssetImage("assets/images/profile.png") : NetworkImage(img),
-                              //backgroundColor: ,
-                            ),
+                            FutureBuilder(
+                                future: FirebaseStorage.instance.ref('images/${profile.email}/${profile.fname}').getDownloadURL(),
+                                builder: (context,snapshot){
+                                  if(snapshot.hasData)
+                                    {
+                                      String url = snapshot.data;
+                                      return CircleAvatar(
+                                        radius: 70,
+                                        backgroundImage: url==null ? AssetImage("assets/images/profile.png") : NetworkImage(url),
+                                        //backgroundColor: ,
+                                      );
+                                    }
+                                  else
+                                    return CircleAvatar(
+                                    radius: 70,
+                                    backgroundImage: AssetImage("assets/images/profile.png"),
+                                    //backgroundColor: ,
+                                  );
+
+                                }),
                             SizedBox(height: 20,width: 10,),
                             Text(profile.name,style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),
                             SizedBox(height: 20,width: 10,),
