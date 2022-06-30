@@ -5,6 +5,10 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:meetfit_project/Screens/profileScreen.dart';
+
 class CreateProfile extends StatefulWidget {
   final String email;
   final String pass;
@@ -17,13 +21,25 @@ class CreateProfile extends StatefulWidget {
 
 class _CreateProfileState extends State<CreateProfile> {
 
-  String _email  = "",_pass = "",_name="",_about="",_imgurl = "",_fname = "";
+  String _email  = "",_pass = "",_name="",_about="",_imgurl = "",_fname = "",_loc="";
   TextEditingController _nameController = TextEditingController();
   TextEditingController _aboutController = TextEditingController();
 
-  Future<void> upload(String path,String fname,String email) async{
+  Future <User>signUp(String email,String pass) async{
     try{
-      await FirebaseStorage.instance.ref('images/$email/$fname').putFile(File(path));
+      UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(email: email, password: pass);
+      return FirebaseAuth.instance.currentUser;
+    }catch(e){
+        print(e);
+    }
+  }
+
+  Future<String> upload(String path,String fname,String email) async{
+    try{
+      final ref = FirebaseStorage.instance.ref('images/${email}/${fname}');
+      await ref.putFile(File(path)).then((p){
+        return p.ref.getDownloadURL();
+      });
     }
     on firebase_core.FirebaseException catch(e){
       print(e);
@@ -36,6 +52,7 @@ class _CreateProfileState extends State<CreateProfile> {
   Widget build(BuildContext context) {
     _email = widget.email;
     _pass = widget.pass;
+    //print(_email);print(_pass);
     return WillPopScope(
       onWillPop: () async {
         ScaffoldMessenger.of(context).showSnackBar(
@@ -70,7 +87,7 @@ class _CreateProfileState extends State<CreateProfile> {
                   SizedBox(height: 20,width: 20,),
                   GestureDetector(
                     onTap: ()async{
-                      print("YES");
+                      //print("YES");
                       final FilePickerResult res = await FilePicker.platform.pickFiles(
                         allowMultiple: false,
                         type: FileType.custom,
@@ -87,8 +104,8 @@ class _CreateProfileState extends State<CreateProfile> {
                         path = res.files.single.path;
                         _imgurl = path;
                         _fname = res.files.single.name;
-                        print(_fname);
-                        print(path);
+                        //print(_fname);
+                        //print(path);
                         setState(() {
                         });
                       }
@@ -214,11 +231,24 @@ class _CreateProfileState extends State<CreateProfile> {
                         ),
                         SizedBox(height: 20,width: 20,),
                         GestureDetector(
-                          onTap: (){
+                          onTap: ()async{
                             if(_formKey.currentState.validate() && _imgurl!="")
                               {
-                                print("yes");
-                                upload(_imgurl, _fname, _email);
+                                //print("yes");
+                                signUp(_email,_pass).then((user){
+                                  upload(_imgurl, _fname, _email);
+                                  Map<String,dynamic> data ={
+                                    'uid': user==null ? '' : user.uid,
+                                    'email': _email,
+                                    'about': _about,
+                                    'name': _name,
+                                  };
+                                  FirebaseFirestore.instance.collection("Users").doc(user.uid).collection("data").add(data).whenComplete(() {
+                                    print("Complete");
+                                    Navigator.pushReplacement(context,
+                                        MaterialPageRoute(builder: (BuildContext context)=>profile(user)));
+                                  });
+                                });
                               }
                             else
                               {

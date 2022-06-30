@@ -18,8 +18,8 @@ class _SplashState extends State<Splash> {
     Timer(
         Duration(seconds: 4),
             (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateProfile("email", "pass")));
-          //Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
+          //Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateProfile("email", "pass")));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
         }
     );
   }

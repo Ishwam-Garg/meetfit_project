@@ -36,6 +36,7 @@ dev_dependencies:
   firebase_core: ^1.6.0
   cloud_firestore:
   firebase_storage: ^10.0.3
+  firebase_auth: ^3.3.20
   #design & fonts
   animated_text_kit:
   #google_fonts:
