@@ -2,6 +2,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:email_validator/email_validator.dart';
+import 'package:meetfit_project/Screens/CreateProfile.dart';
 import 'package:meetfit_project/Screens/Login%20Screen.dart';
 
 class SignUp extends StatefulWidget {
@@ -206,6 +207,10 @@ class _SignUpState extends State<SignUp> {
                             if(_formKey.currentState.validate() && cpass == pass)
                               {
                                 print("Yes");
+                                _emailController.clear();_passwordController.clear();
+                                _cpassController.clear();
+                                Navigator.pushReplacement(context,
+                                    MaterialPageRoute(builder: (BuildContext context)=> CreateProfile(email, pass)));
                               }
                             else
                               {

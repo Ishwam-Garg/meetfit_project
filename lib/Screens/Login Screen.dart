@@ -46,7 +46,7 @@ class _LoginState extends State<Login> {
                         else if(!EmailValidator.validate(email))
                           return "Invalid Email";
                         else
-                          return "";
+                          return null;
                       },
                       maxLines:  1,
                       obscureText: false,
@@ -96,7 +96,7 @@ class _LoginState extends State<Login> {
                         else if(pass.contains(' '))
                           return "Password with spaces not allowed";
                         else
-                          return "";
+                          return null;
                       },
                       onChanged: (value){
                         setState(() {

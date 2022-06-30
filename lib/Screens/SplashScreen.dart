@@ -4,6 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meetfit_project/Screens/CreateProfile.dart';
 import 'package:meetfit_project/Screens/SignUpScreen.dart';
 
 class Splash extends StatefulWidget {
@@ -18,7 +19,8 @@ class _SplashState extends State<Splash> {
     Timer(
         Duration(seconds: 4),
             (){
-          Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
+          Navigator.of(context).push(MaterialPageRoute(builder: (context) => CreateProfile("email", "pass")));
+          //Navigator.of(context).push(MaterialPageRoute(builder: (context) => SignUp()));
         }
     );
   }
@@ -39,7 +41,7 @@ class _SplashState extends State<Splash> {
           child: ColorizeAnimatedTextKit(
             repeatForever: true,
             text: [
-              'MeetFit',
+              'MeetMeFit',
             ],
             speed: Duration(milliseconds: 500),
             textStyle: GoogleFonts.satisfy(
