@@ -24,7 +24,15 @@ class _profileState extends State<profile> {
       img = p;
     });
   }
-  
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    setState(() {
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     user=widget.user;
