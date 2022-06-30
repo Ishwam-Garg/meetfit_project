@@ -77,8 +77,8 @@ class _profileState extends State<profile> {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            FutureBuilder(
-                                future: FirebaseStorage.instance.ref('images/${profile.email}/${profile.fname}').getDownloadURL(),
+                            StreamBuilder(
+                                stream: FirebaseStorage.instance.ref('images/${profile.email}/${profile.fname}').getDownloadURL().asStream(),
                                 builder: (context,snapshot){
                                   if(snapshot.hasData)
                                     {
