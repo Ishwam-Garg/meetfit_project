@@ -1,4 +1,6 @@
 //@dart=2.9
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
@@ -17,9 +19,6 @@ class _CreateProfileState extends State<CreateProfile> {
   String _email  = "",_pass = "",_name="",_about="",_imgurl = "";
   TextEditingController _nameController = TextEditingController();
   TextEditingController _aboutController = TextEditingController();
-
-
-
 
   final _formKey = GlobalKey<FormState>();
   @override
@@ -77,12 +76,16 @@ class _CreateProfileState extends State<CreateProfile> {
                         path = res.files.single.path;
                         _imgurl = path;
                         fname = res.files.single.name;
-                        print(fname + " " + path);
+                        print(fname);
+                        print(path);
+                        setState(() {
+
+                        });
                       }
                     },
                     child: CircleAvatar(
                       radius: 70,
-                      backgroundImage: _imgurl=="" ? AssetImage("assets/images/profile.png") : AssetImage(_imgurl),
+                      backgroundImage: _imgurl=="" ? AssetImage("assets/images/profile.png") : FileImage(File(_imgurl)),
                       child: Align(
                         alignment: Alignment.bottomRight,
                         child: CircleAvatar(
